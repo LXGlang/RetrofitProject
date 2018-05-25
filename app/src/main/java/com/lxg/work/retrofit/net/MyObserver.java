@@ -25,7 +25,7 @@ public abstract class MyObserver<T> implements Observer<T> {
     public abstract void onNext(T o);
 
     @Override
-    public final void onError(Throwable e) {
+    public void onError(Throwable e) {
         String errorMsg;
         //不要随便修改判断位置
         if (e instanceof HttpException) {
@@ -51,7 +51,10 @@ public abstract class MyObserver<T> implements Observer<T> {
             errorMsg = "未提前预料到的错误";
         }
         ToastUtils.showToast(APP.getContext(), errorMsg);
+        onFailure(errorMsg);
     }
+
+    public abstract void onFailure(String errorMsg);
 
     @Override
     public abstract void onComplete();

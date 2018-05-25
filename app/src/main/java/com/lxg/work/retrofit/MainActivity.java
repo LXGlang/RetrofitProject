@@ -1,5 +1,6 @@
 package com.lxg.work.retrofit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,9 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onSubscribe(Disposable d) {
 //                        MainActivity.this.finish();
+                        /*if (d.isDisposed()) {
+                            d.dispose();
+                        }*/
                     }
 
                     @Override
@@ -48,8 +52,13 @@ public class MainActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onFailure(String errorMsg) {
 
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.e(HttpUtils.map2StringEn("测试","1","啊啊啊","耶耶耶").toString());
                     }
                 }, 0, 1);
                 break;
