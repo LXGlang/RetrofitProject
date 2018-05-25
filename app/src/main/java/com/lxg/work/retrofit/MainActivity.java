@@ -55,11 +55,6 @@ public class MainActivity extends BaseActivity {
                     public void onFailure(String errorMsg) {
 
                     }
-
-                    @Override
-                    public void onComplete() {
-                        LogUtils.e(HttpUtils.map2StringEn("测试","1","啊啊啊","耶耶耶").toString());
-                    }
                 }, 0, 1);
                 break;
             case R.id.bt_test1:

@@ -133,12 +133,7 @@ public class HttpUtils {
     private <T> void to(Consumer<T> tConsumer, Observable<T> observable, ObservableTransformer transformer) {
         observable
                 .compose(transformer)
-                .subscribe(tConsumer, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                .subscribe(tConsumer);
     }
 
     /**

@@ -57,5 +57,8 @@ public abstract class MyObserver<T> implements Observer<T> {
     public abstract void onFailure(String errorMsg);
 
     @Override
-    public abstract void onComplete();
+    public void onComplete() {
+
+    }
+
 }
