@@ -35,17 +35,6 @@ public abstract class CuObserver<T> implements Observer<HttpResult<T>> {
      */
     public abstract void onSuccess(T t);
 
-    /**
-     * @param mContext
-     * @param showProgress 默认需要显示进程，不要的话请传 false
-     */
-    public CuObserver(Context mContext, boolean showProgress) {
-        this.mContext = mContext;
-        this.showProgress = showProgress;
-        // TODO: 2018/5/25 0025 判断是否显示dialog 
-    }
-
-
     @Override
     public final void onSubscribe(Disposable d) {
     }

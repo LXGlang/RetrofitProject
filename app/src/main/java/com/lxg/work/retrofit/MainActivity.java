@@ -1,6 +1,5 @@
 package com.lxg.work.retrofit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import com.lxg.work.retrofit.base.BaseActivity;
 import com.lxg.work.retrofit.entity.response.Movie;
 import com.lxg.work.retrofit.net.HttpUtils;
+import com.lxg.work.retrofit.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.net.MyObserver;
 import com.lxg.work.retrofit.util.LogUtils;
 
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
                     public void accept(Movie movie) throws Exception {
                         tv_test.setText(movie.getSubjects().toString());
                     }
-                }, new Consumer<Throwable>() {
+                }, new MyThrowableConsumer() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
                 HttpUtils.getInstance().test2(this, new Consumer<Movie>() {
                     @Override
                     public void accept(Movie movie) throws Exception {
-                        tv_test.setText(movie.getSubjects().toString());
+
                     }
                 }, 0, 1);
                 break;

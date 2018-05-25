@@ -94,7 +94,7 @@ public class HttpUtils {
      * @param lifecycleProvider
      * @param observable
      */
-    public void test1(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, Consumer<Throwable> throwableConsumer, int start, int count) {
+    public void test1(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, MyThrowableConsumer throwableConsumer, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
         to(observable, throwableConsumer, processList, new RxManager(lifecycleProvider).setIoManager());
     }
@@ -144,7 +144,7 @@ public class HttpUtils {
      * @param observable
      * @param <T>
      */
-    private <T> void to(Consumer<T> tConsumer, Consumer<Throwable> throwableConsumer, Observable<T> observable, ObservableTransformer transformer) {
+    private <T> void to(Consumer<T> tConsumer, MyThrowableConsumer throwableConsumer, Observable<T> observable, ObservableTransformer transformer) {
         observable
                 .compose(transformer)
                 .subscribe(tConsumer, throwableConsumer);
