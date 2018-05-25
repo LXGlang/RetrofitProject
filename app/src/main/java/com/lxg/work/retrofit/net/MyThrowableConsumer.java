@@ -49,6 +49,7 @@ public class MyThrowableConsumer implements Consumer<Throwable> {
         } else if (t instanceof IOException) {  //飞行模式等
             errorMsg = "没有网络，请检查网络连接";
         }
+        t.printStackTrace();
         LogUtils.i("报错内容:" + errorMsg);
         ToastUtils.showToast(APP.getContext(), errorMsg);
     }
