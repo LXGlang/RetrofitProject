@@ -1,1 +1,1 @@
-一个简单的对Retrofit2.0与RxJava2的封装
+一个简单的对Retrofit2.0与RxJava2的封装,使用了rxlifecycle2对生命周期进行管理
