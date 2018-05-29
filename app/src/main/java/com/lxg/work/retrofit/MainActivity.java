@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
                 }, new MyThrowableConsumer() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        throwable.printStackTrace();
                     }
                 }, 0, 1);
                 break;

@@ -16,5 +16,5 @@ import retrofit2.http.QueryMap;
 public interface LHApi {
 
     @GET("top250")
-    Observable<HttpResult<Movie>> getTopMovie(@Query("start") int start, @Query("count") int count);
+    Observable<Movie> getTopMovie(@Query("start") int start, @Query("count") int count);
 }

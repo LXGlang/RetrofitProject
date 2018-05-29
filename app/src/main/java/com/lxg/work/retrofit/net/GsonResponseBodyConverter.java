@@ -47,7 +47,7 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
                 throw new ApiException(ApiException.SERVICE_ERROR, "返回数据错误");
             }
             T t = gson.fromJson(response, type);
-//        LogUtils.JSON(response);
+        LogUtils.JSON(response);
         return t;
 
     }
