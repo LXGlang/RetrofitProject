@@ -21,13 +21,15 @@ public class JsonLogUtils {
             Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════");
         }
     }
-    public static void json(Object msg){
-        String[] contents = wrapperContent(5,msg);
+
+    public static void json(Object msg) {
+        String[] contents = wrapperContent(5, msg);
         String tags = contents[0];
         String msgs = contents[1];
         String headString = contents[2];
-        printJson(tags,msgs,headString);
+        printJson(tags, msgs, headString);
     }
+
     private static void printJson(String tag, String msg, String headString) {
 
         String message;
@@ -45,13 +47,21 @@ public class JsonLogUtils {
             message = msg;
         }
 
-        printLine(tag, true);
         message = headString + LINE_SEPARATOR + message;
         String[] lines = message.split(LINE_SEPARATOR);
-        for (String line : lines) {
-            Log.d(tag, "║ " + line);
+        LogUtils.e("lines.length" + lines.length);
+        if (lines.length > 99) {
+            printLine(tag, true);
+            LogUtils.i("打印日志行数" + lines.length + ",超过99行,改为直接打印:" + msg);
+            printLine(tag, false);
+
+        } else {
+            printLine(tag, true);
+            for (String line : lines) {
+                Log.e(tag, "║ " + line);
+            }
+            printLine(tag, false);
         }
-        printLine(tag, false);
     }
 
     private static String[] wrapperContent(int stackTraceIndex, Object objects) {
@@ -83,8 +93,9 @@ public class JsonLogUtils {
 
         return new String[]{tag, msg, headString};
     }
+
     private static String getObjectsString(Object objects) {
 
-            return objects == null ? "NULL" : objects.toString();
+        return objects == null ? "NULL" : objects.toString();
     }
 }
