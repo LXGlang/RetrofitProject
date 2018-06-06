@@ -1,14 +1,11 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 
-import com.lxg.work.retrofit.entity.response.Movie;
-
-import java.util.Map;
+import com.lxg.work.retrofit.re.entity.response.Movie;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * Created by Lxg on 2018/5/24 0024.

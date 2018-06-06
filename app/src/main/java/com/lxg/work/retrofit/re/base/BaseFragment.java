@@ -1,4 +1,4 @@
-package com.lxg.work.retrofit.base;
+package com.lxg.work.retrofit.re.base;
 
 import com.trello.rxlifecycle2.components.RxFragment;
 

@@ -1,4 +1,4 @@
-package com.lxg.work.retrofit.util;
+package com.lxg.work.retrofit.re.util;
 
 import android.text.TextUtils;
 import android.util.Log;

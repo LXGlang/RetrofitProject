@@ -1,7 +1,7 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 import com.lxg.work.retrofit.BuildConfig;
-import com.lxg.work.retrofit.entity.response.Movie;
+import com.lxg.work.retrofit.re.entity.response.Movie;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.io.IOException;

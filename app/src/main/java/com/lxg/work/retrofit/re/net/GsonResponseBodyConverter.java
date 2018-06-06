@@ -1,9 +1,9 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.lxg.work.retrofit.util.LogUtils;
+import com.lxg.work.retrofit.re.util.LogUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

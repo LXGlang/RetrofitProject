@@ -1,4 +1,4 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 import java.io.IOException;
 

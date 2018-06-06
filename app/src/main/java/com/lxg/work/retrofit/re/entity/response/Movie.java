@@ -1,4 +1,4 @@
-package com.lxg.work.retrofit.entity.response;
+package com.lxg.work.retrofit.re.entity.response;
 
 import java.util.List;
 

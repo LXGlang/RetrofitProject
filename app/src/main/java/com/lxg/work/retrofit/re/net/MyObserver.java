@@ -1,8 +1,8 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 import com.google.gson.JsonSyntaxException;
 import com.lxg.work.retrofit.APP;
-import com.lxg.work.retrofit.util.ToastUtils;
+import com.lxg.work.retrofit.re.util.ToastUtils;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -23,7 +23,7 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public abstract void onNext(T o);
-
+//    public abstract void onSuccess(T o);
     @Override
     public void onError(Throwable e) {
         String errorMsg;
@@ -50,7 +50,7 @@ public abstract class MyObserver<T> implements Observer<T> {
         } else {
             errorMsg = "未提前预料到的错误";
         }
-        ToastUtils.showToast(APP.getContext(), errorMsg);
+        ToastUtils.showToast(errorMsg);
         onFailure(errorMsg);
     }
 

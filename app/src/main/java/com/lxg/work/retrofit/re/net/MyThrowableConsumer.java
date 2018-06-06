@@ -1,9 +1,9 @@
-package com.lxg.work.retrofit.net;
+package com.lxg.work.retrofit.re.net;
 
 import com.google.gson.JsonSyntaxException;
 import com.lxg.work.retrofit.APP;
-import com.lxg.work.retrofit.util.LogUtils;
-import com.lxg.work.retrofit.util.ToastUtils;
+import com.lxg.work.retrofit.re.util.LogUtils;
+import com.lxg.work.retrofit.re.util.ToastUtils;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -51,6 +51,6 @@ public class MyThrowableConsumer implements Consumer<Throwable> {
         }
         t.printStackTrace();
         LogUtils.i("报错内容:" + errorMsg);
-        ToastUtils.showToast(APP.getContext(), errorMsg);
+        ToastUtils.showToast(errorMsg);
     }
 }
