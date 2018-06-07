@@ -11,7 +11,10 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -96,6 +99,17 @@ public class HttpUtils {
      */
     public void test1(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, MyThrowableConsumer throwableConsumer, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
+        processList.doOnNext(new Consumer() {
+            @Override
+            public void accept(Object o) throws Exception {
+
+            }
+        }).flatMap(new Function() {
+            @Override
+            public Object apply(Object o) throws Exception {
+                return null;
+            }
+        });
         to(observable, throwableConsumer, processList, new RxManager(lifecycleProvider).setIoManager());
     }
 
@@ -148,6 +162,26 @@ public class HttpUtils {
         observable
                 .compose(transformer)
                 .subscribe(tConsumer, throwableConsumer);
+    }
+
+    /**
+     * 请求级联嵌套,处理成功与失败逻辑
+     *
+     * @param observable1 第一个请求
+     * @param consumer    第一个请求的成功处理
+     * @param function    第二个请求
+     * @param myObserver  第二次请求的处理和失败逻辑处理
+     * @param transformer
+     * @param <T>         第一个请求结果
+     * @param <H>         第二个请求结果
+     */
+    private <T, H> void to(Observable<T> observable1, Consumer<T> consumer, Function<T, Observable<H>> function, MyObserver<H> myObserver, ObservableTransformer transformer) {
+        observable1.compose(transformer)
+                .doOnNext(consumer)
+                .observeOn(Schedulers.io())
+                .flatMap(function)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(myObserver);
     }
 
     /**
