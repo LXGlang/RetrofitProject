@@ -2,6 +2,7 @@ package com.lxg.work.retrofit.re.net;
 
 import com.google.gson.JsonSyntaxException;
 import com.lxg.work.retrofit.APP;
+import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 
 import java.io.IOException;
@@ -51,6 +52,8 @@ public abstract class MyObserver<T> implements Observer<T> {
             errorMsg = "未提前预料到的错误";
         }
         ToastUtils.showToast(errorMsg);
+        LogUtils.e(e.toString());
+        e.printStackTrace();
         onFailure(errorMsg);
     }
 

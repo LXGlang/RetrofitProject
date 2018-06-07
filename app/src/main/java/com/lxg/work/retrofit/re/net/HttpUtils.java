@@ -2,16 +2,21 @@ package com.lxg.work.retrofit.re.net;
 
 import com.lxg.work.retrofit.BuildConfig;
 import com.lxg.work.retrofit.re.entity.response.Movie;
+import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -20,6 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.HttpException;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -31,6 +37,13 @@ public class HttpUtils {
     private static HttpUtils instance = new HttpUtils();
     private LHApi lhApi;
     private Interceptor interceptor;
+
+    // 可重试次数
+    private int maxConnectCount = 10;
+    // 当前已重试次数
+    private int currentRetryCount = 0;
+    // 重试等待时间
+    private int waitRetryTime = 0;
 
     public static final String FINAL_URL = "https://api.douban.com/v2/movie/";
 
@@ -88,7 +101,7 @@ public class HttpUtils {
      */
     public void test(LifecycleProvider lifecycleProvider, MyObserver<Movie> observable, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
-        to(processList, observable, new RxManager(lifecycleProvider).setIoManager());
+        errorto(processList, observable, new RxManager(lifecycleProvider).setIoManager());
     }
 
     /**
@@ -182,6 +195,43 @@ public class HttpUtils {
                 .flatMap(function)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(myObserver);
+    }
+
+    /**
+     * 处理全部事件
+     *
+     * @param tObservable 处理全部事件
+     * @param observer
+     * @param <T>
+     */
+    private <T> void errorto(Observable<T> tObservable, Observer<T> observer, ObservableTransformer transformer) {
+        currentRetryCount = 0;
+        tObservable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
+            @Override
+            public ObservableSource<?> apply(@NonNull Observable<Throwable> throwableObservable) throws Exception {
+                return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
+                        if (throwable instanceof IOException || throwable instanceof HttpException) {
+                            //当且仅当网络错误才处理
+                            if (++currentRetryCount > maxConnectCount) {
+                                //尝试次数已达最大
+                                return Observable.error(throwable);
+                            } else {
+                                currentRetryCount++;
+                                ToastUtils.showToast("网络异常,开始重新尝试,当前正在重试第" + currentRetryCount + "次");
+                                return Observable.timer(2000, TimeUnit.MILLISECONDS);
+                            }
+                        } else {
+                            //普通异常不在尝试重新获取数据
+                            return Observable.error(throwable);
+                        }
+                    }
+                });
+
+            }
+        }).compose(transformer)
+                .subscribe(observer);
     }
 
     /**
