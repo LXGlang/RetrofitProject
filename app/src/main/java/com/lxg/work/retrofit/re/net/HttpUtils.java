@@ -39,11 +39,9 @@ public class HttpUtils {
     private Interceptor interceptor;
 
     // 可重试次数
-    private int maxConnectCount = 10;
+    private int maxConnectCount = 7;
     // 当前已重试次数
     private int currentRetryCount = 0;
-    // 重试等待时间
-    private int waitRetryTime = 0;
 
     public static final String FINAL_URL = "https://api.douban.com/v2/movie/";
 
@@ -218,9 +216,8 @@ public class HttpUtils {
                                 //尝试次数已达最大
                                 return Observable.error(throwable);
                             } else {
-                                currentRetryCount++;
                                 ToastUtils.showToast("网络异常,开始重新尝试,当前正在重试第" + currentRetryCount + "次");
-                                return Observable.timer(2000, TimeUnit.MILLISECONDS);
+                                return Observable.just(0).delay(3,TimeUnit.SECONDS);
                             }
                         } else {
                             //普通异常不在尝试重新获取数据
