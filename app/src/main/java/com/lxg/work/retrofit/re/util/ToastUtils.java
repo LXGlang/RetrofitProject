@@ -31,7 +31,6 @@ public class ToastUtils {
                             toast.setDuration(Toast.LENGTH_SHORT);
                         }
                         toast.show();
-
                     }
                 });
     }

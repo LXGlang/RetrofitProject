@@ -1,5 +1,6 @@
 package com.lxg.work.retrofit.re;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import com.lxg.work.retrofit.re.net.HttpUtils;
 import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.re.net.MyObserver;
 import com.lxg.work.retrofit.re.util.LogUtils;
+import com.lxg.work.retrofit.re.util.ToastUtils;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -55,8 +57,9 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(String errorMsg) {
-
+                        ToastUtils.showToast(errorMsg);
                     }
+
                 }, 0, 1);
                 break;
             case R.id.bt_test1:
@@ -96,4 +99,11 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
 //        startActivity(new Intent(MainActivity.this, MainActivity.class));
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
 }

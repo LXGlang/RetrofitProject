@@ -196,10 +196,10 @@ public class HttpUtils {
     }
 
     /**
-     * 处理全部事件
-     *
-     * @param tObservable 处理全部事件
+     * 错误延时重连
+     * @param tObservable
      * @param observer
+     * @param transformer
      * @param <T>
      */
     private <T> void errorto(Observable<T> tObservable, Observer<T> observer, ObservableTransformer transformer) {
