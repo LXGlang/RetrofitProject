@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
         bt_test2.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onStart(Disposable disposable) {
-
+//                        cancelRequest();
                     }
 
                     @Override

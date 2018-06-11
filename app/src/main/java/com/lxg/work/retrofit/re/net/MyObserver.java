@@ -24,6 +24,7 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
+        LogUtils.i("onSubscribe方法执行");
         disposable = d;
         onStart(d);
     }
@@ -35,8 +36,8 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onNext(T o) {
+        LogUtils.i("onNext方法执行");
         onSuccess(o);
-        cancelRequest();
     }
 
     /**
@@ -48,6 +49,8 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        LogUtils.i("onError方法执行");
+
         String errorMsg;
         //不要随便修改判断位置
         if (e instanceof HttpException) {
@@ -75,7 +78,6 @@ public abstract class MyObserver<T> implements Observer<T> {
         LogUtils.e(e.toString());
         e.printStackTrace();
         onFailure(errorMsg);
-        cancelRequest();
     }
 
     /**
@@ -94,7 +96,8 @@ public abstract class MyObserver<T> implements Observer<T> {
      * 取消请求
      */
     public void cancelRequest() {
-        if (disposable.isDisposed()) {
+        if (!disposable.isDisposed()) {
+            LogUtils.e("请求被主动取消!");
             disposable.dispose();
         }
     }

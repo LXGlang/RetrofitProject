@@ -1,7 +1,10 @@
 package com.lxg.work.retrofit.re.net;
 
+import android.util.Log;
+
 import com.lxg.work.retrofit.BuildConfig;
 import com.lxg.work.retrofit.re.entity.response.Movie;
+import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
@@ -186,12 +189,13 @@ public class HttpUtils {
 
     /**
      * 错误延时重连
+     *
      * @param tObservable
      * @param observer
      * @param transformer
      * @param <T>
      */
-    private <T> void errorto(Observable<T> tObservable, Observer<T> observer, ObservableTransformer transformer) {
+    private <T> void errorto(Observable<T> tObservable, MyObserver<T> observer, ObservableTransformer transformer) {
         currentRetryCount = 0;
         tObservable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
             @Override
@@ -203,13 +207,18 @@ public class HttpUtils {
                             //当且仅当网络错误才处理
                             if (++currentRetryCount > maxConnectCount) {
                                 //尝试次数已达最大
+                                LogUtils.e(throwable.toString());
+                                throwable.printStackTrace();
                                 return Observable.error(throwable);
                             } else {
                                 ToastUtils.showToast("网络异常,开始重新尝试,当前正在重试第" + currentRetryCount + "次");
-                                return Observable.just(0).delay(3,TimeUnit.SECONDS);
+//                                return Observable.just(0).delay(3,TimeUnit.SECONDS);
+                                return Observable.timer(3, TimeUnit.SECONDS);
                             }
                         } else {
                             //普通异常不在尝试重新获取数据
+                            LogUtils.e(throwable.toString());
+                            throwable.printStackTrace();
                             return Observable.error(throwable);
                         }
                     }
