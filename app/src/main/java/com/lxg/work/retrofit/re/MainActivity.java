@@ -1,5 +1,7 @@
 package com.lxg.work.retrofit.re;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.re.net.MyObserver;
 import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
+import com.lxg.work.retrofit.re.widget.MyDialogFragment;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -21,6 +24,7 @@ import io.reactivex.functions.Consumer;
 public class MainActivity extends BaseActivity {
 
     private TextView tv_test;
+    private Disposable d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +46,16 @@ public class MainActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.bt_test:
                 HttpUtils.getInstance().test(this, new MyObserver<Movie>() {
+
                     @Override
-                    public void onSubscribe(Disposable d) {
-//                        MainActivity.this.finish();
-                        /*if (d.isDisposed()) {
-                            d.dispose();
-                        }*/
+                    public void onStart(Disposable disposable) {
+
                     }
 
                     @Override
-                    public void onNext(Movie o) {
+                    public void onSuccess(Movie o) {
                         LogUtils.List(o.getSubjects());
+                        tv_test.setText(o.toString());
                     }
 
                     @Override

@@ -110,17 +110,6 @@ public class HttpUtils {
      */
     public void test1(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, MyThrowableConsumer throwableConsumer, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
-        processList.doOnNext(new Consumer() {
-            @Override
-            public void accept(Object o) throws Exception {
-
-            }
-        }).flatMap(new Function() {
-            @Override
-            public Object apply(Object o) throws Exception {
-                return null;
-            }
-        });
         to(observable, throwableConsumer, processList, new RxManager(lifecycleProvider).setIoManager());
     }
 
@@ -186,7 +175,7 @@ public class HttpUtils {
      * @param <T>         第一个请求结果
      * @param <H>         第二个请求结果
      */
-    private <T, H> void to(Observable<T> observable1, Consumer<T> consumer, Function<T, Observable<H>> function, MyObserver<H> myObserver, ObservableTransformer transformer) {
+    private <T, H> void twoRequests(Observable<T> observable1, Consumer<T> consumer, Function<T, Observable<H>> function, MyObserver<H> myObserver, ObservableTransformer transformer) {
         observable1.compose(transformer)
                 .doOnNext(consumer)
                 .observeOn(Schedulers.io())

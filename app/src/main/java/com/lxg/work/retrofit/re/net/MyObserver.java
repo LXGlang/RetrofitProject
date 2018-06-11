@@ -19,12 +19,33 @@ import retrofit2.HttpException;
  * Created by Lxg on 2018/5/24 0024.
  */
 public abstract class MyObserver<T> implements Observer<T> {
-    @Override
-    public abstract void onSubscribe(Disposable d);
+
+    private Disposable disposable;
 
     @Override
-    public abstract void onNext(T o);
-//    public abstract void onSuccess(T o);
+    public void onSubscribe(Disposable d) {
+        disposable = d;
+        onStart(d);
+    }
+
+    /**
+     * 开始网络访问
+     */
+    public abstract void onStart(Disposable d);
+
+    @Override
+    public void onNext(T o) {
+        onSuccess(o);
+        cancelRequest();
+    }
+
+    /**
+     * 请求成功
+     *
+     * @param o
+     */
+    public abstract void onSuccess(T o);
+
     @Override
     public void onError(Throwable e) {
         String errorMsg;
@@ -37,7 +58,6 @@ public abstract class MyObserver<T> implements Observer<T> {
             errorMsg = "网络连接异常，请检查网络";
         } else if (e instanceof JsonSyntaxException) {
             errorMsg = "数据返回格式错误";
-            e.printStackTrace();
         } else if (e instanceof NullPointerException) {
             errorMsg = "网络传输信息丢失";
         } else if (e instanceof RuntimeException) {
@@ -55,8 +75,14 @@ public abstract class MyObserver<T> implements Observer<T> {
         LogUtils.e(e.toString());
         e.printStackTrace();
         onFailure(errorMsg);
+        cancelRequest();
     }
 
+    /**
+     * 请求失败处理
+     *
+     * @param errorMsg
+     */
     public abstract void onFailure(String errorMsg);
 
     @Override
@@ -64,4 +90,12 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     }
 
+    /**
+     * 取消请求
+     */
+    public void cancelRequest() {
+        if (disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
 }
