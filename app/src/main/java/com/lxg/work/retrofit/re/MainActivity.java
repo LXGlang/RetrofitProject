@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
                     public void onSuccess(Movie o) {
                         LogUtils.List(o.getSubjects());
                         tv_test.setText(o.toString());
+                        o.getSubjects().get(101);
                     }
 
                     @Override

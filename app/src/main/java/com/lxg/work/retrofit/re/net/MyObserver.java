@@ -37,7 +37,15 @@ public abstract class MyObserver<T> implements Observer<T> {
     @Override
     public void onNext(T o) {
         LogUtils.i("onNext方法执行");
-        onSuccess(o);
+        try {
+            onSuccess(o);
+        } catch (Exception e) {
+            onError(e);
+            e.printStackTrace();
+        } finally {
+            cancelRequest();
+        }
+
     }
 
     /**
@@ -45,7 +53,7 @@ public abstract class MyObserver<T> implements Observer<T> {
      *
      * @param o
      */
-    public abstract void onSuccess(T o);
+    public abstract void onSuccess(T o) throws Exception;
 
     @Override
     public void onError(Throwable e) {
