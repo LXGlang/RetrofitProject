@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.lxg.work.retrofit.R;
+
 
 /**
  * Created by Lxg on 2018/6/11 0011.
