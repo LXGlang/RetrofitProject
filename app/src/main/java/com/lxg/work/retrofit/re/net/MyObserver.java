@@ -57,7 +57,7 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.i("onError方法执行");
+        LogUtils.e("onError方法执行"+e.toString());
 
         String errorMsg;
         //不要随便修改判断位置
@@ -105,7 +105,7 @@ public abstract class MyObserver<T> implements Observer<T> {
      */
     public void cancelRequest() {
         if (!disposable.isDisposed()) {
-            LogUtils.e("请求被主动取消!");
+            LogUtils.e("网络请求被取消!");
             disposable.dispose();
         }
     }

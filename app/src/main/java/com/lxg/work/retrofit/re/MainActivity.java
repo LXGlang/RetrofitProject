@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lxg.work.retrofit.R;
 import com.lxg.work.retrofit.re.base.BaseActivity;
+import com.lxg.work.retrofit.re.base.BaseFragmentActivity;
 import com.lxg.work.retrofit.re.entity.response.Movie;
 import com.lxg.work.retrofit.re.net.HttpUtils;
 import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
@@ -21,7 +22,7 @@ import com.lxg.work.retrofit.re.widget.MyDialogFragment;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     private TextView tv_test;
     private Disposable d;
@@ -51,6 +52,9 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onStart(Disposable disposable) {
 //                        cancelRequest();
+                        MyDialogFragment myDialogFragment = new MyDialogFragment();
+                        myDialogFragment.show(getSupportFragmentManager(),"");
+
                     }
 
                     @Override
