@@ -15,6 +15,7 @@ import com.lxg.work.retrofit.re.entity.response.Movie;
 import com.lxg.work.retrofit.re.net.HttpUtils;
 import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.re.net.MyObserver;
+import com.lxg.work.retrofit.re.util.DialogFragmentUtil;
 import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.lxg.work.retrofit.re.widget.MyDialogFragment;
@@ -51,10 +52,6 @@ public class MainActivity extends BaseFragmentActivity {
 
                     @Override
                     public void onStart(Disposable disposable) {
-//                        cancelRequest();
-                        MyDialogFragment myDialogFragment = new MyDialogFragment();
-                        myDialogFragment.show(getSupportFragmentManager(),"");
-
                     }
 
                     @Override
@@ -66,7 +63,9 @@ public class MainActivity extends BaseFragmentActivity {
 
                     @Override
                     public void onFailure(String errorMsg) {
-                        ToastUtils.showToast(errorMsg);
+                        MyDialogFragment myDialogFragment = new MyDialogFragment();
+                        myDialogFragment.show(getSupportFragmentManager(),"测试1");
+//                        myDialogFragment.setinfo("出错啦!",errorMsg,null,null);
                     }
 
                 }, 0, 1);
