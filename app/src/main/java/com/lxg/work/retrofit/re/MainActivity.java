@@ -1,7 +1,5 @@
 package com.lxg.work.retrofit.re;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,24 +7,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lxg.work.retrofit.R;
-import com.lxg.work.retrofit.re.base.BaseActivity;
 import com.lxg.work.retrofit.re.base.BaseFragmentActivity;
 import com.lxg.work.retrofit.re.entity.response.Movie;
 import com.lxg.work.retrofit.re.net.HttpUtils;
-import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.re.net.MyObserver;
-import com.lxg.work.retrofit.re.util.DialogFragmentUtil;
+import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
 import com.lxg.work.retrofit.re.util.LogUtils;
+import com.lxg.work.retrofit.re.util.LoginInput;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.lxg.work.retrofit.re.widget.MyDialogFragment;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements LoginInput{
 
     private TextView tv_test;
-    private Disposable d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +36,7 @@ public class MainActivity extends BaseFragmentActivity {
         bt_test.setOnClickListener(this);
         bt_test1.setOnClickListener(this);
         bt_test2.setOnClickListener(this);
+        bt_test3.setOnClickListener(this);
     }
 
 
@@ -64,7 +61,7 @@ public class MainActivity extends BaseFragmentActivity {
                     @Override
                     public void onFailure(String errorMsg) {
                         MyDialogFragment myDialogFragment = new MyDialogFragment();
-                        myDialogFragment.show(getSupportFragmentManager(),"测试1");
+                        myDialogFragment.show(getSupportFragmentManager(), "测试1");
 //                        myDialogFragment.setinfo("出错啦!",errorMsg,null,null);
                     }
 
@@ -92,12 +89,8 @@ public class MainActivity extends BaseFragmentActivity {
                 }, 0, 1);
                 break;
             case R.id.bt_test3:
-                HttpUtils.getInstance().test2(this, new Consumer<Movie>() {
-                    @Override
-                    public void accept(Movie movie) throws Exception {
-
-                    }
-                }, 0, 1);
+                LogUtils.e("测试dialog");
+                    new MyDialogFragment().show(getSupportFragmentManager(),"login","我是标题","我是提示文本");
                 break;
         }
     }
@@ -114,4 +107,8 @@ public class MainActivity extends BaseFragmentActivity {
 
     }
 
+    @Override
+    public void userLogin(String username, String password) {
+        ToastUtils.showToast("当前登陆的用户为"+username+"使用的登录密码是"+password);
+    }
 }

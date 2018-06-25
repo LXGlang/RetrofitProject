@@ -1,5 +1,7 @@
 package com.lxg.work.retrofit.re.net;
 
+import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.lxg.work.retrofit.BuildConfig;
@@ -37,6 +39,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  */
 public class HttpUtils {
 
+    @android.support.annotation.NonNull
     private static HttpUtils instance = new HttpUtils();
     private LHApi lhApi;
     private Interceptor interceptor;
@@ -48,6 +51,7 @@ public class HttpUtils {
 
     public static final String FINAL_URL = "https://api.douban.com/v2/movie/";
 
+    @android.support.annotation.NonNull
     public static HttpUtils getInstance() {
         return instance;
     }
@@ -98,11 +102,11 @@ public class HttpUtils {
      * 测试方法
      *
      * @param lifecycleProvider
-     * @param observable
+     * @param myObserver
      */
-    public void test(LifecycleProvider lifecycleProvider, MyObserver<Movie> observable, int start, int count) {
+    public void test(LifecycleProvider lifecycleProvider, @android.support.annotation.NonNull MyObserver<Movie> myObserver, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
-        errorto(processList, observable, new RxManager(lifecycleProvider).setIoManager());
+        to(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
     }
 
     /**
@@ -111,7 +115,7 @@ public class HttpUtils {
      * @param lifecycleProvider
      * @param observable
      */
-    public void test1(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, MyThrowableConsumer throwableConsumer, int start, int count) {
+    public void test1(LifecycleProvider lifecycleProvider, @android.support.annotation.NonNull Consumer<Movie> observable, @android.support.annotation.NonNull MyThrowableConsumer throwableConsumer, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
         to(observable, throwableConsumer, processList, new RxManager(lifecycleProvider).setIoManager());
     }
@@ -122,7 +126,7 @@ public class HttpUtils {
      * @param lifecycleProvider
      * @param observable
      */
-    public void test2(LifecycleProvider lifecycleProvider, Consumer<Movie> observable, int start, int count) {
+    public void test2(LifecycleProvider lifecycleProvider, @android.support.annotation.NonNull Consumer<Movie> observable, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
         to(observable, processList, new RxManager(lifecycleProvider).setIoManager());
     }
@@ -130,14 +134,14 @@ public class HttpUtils {
     /**
      * 处理全部事件
      *
-     * @param observer   处理全部事件
-     * @param observable
+     * @param tObservable   处理全部事件
+     * @param observer
      * @param <T>
      */
-    private <T> void to(Observable<T> observer, Observer<T> observable, ObservableTransformer transformer) {
-        observer
+    private <T> void to(Observable<T> tObservable, @android.support.annotation.NonNull Observer<T> observer, @android.support.annotation.NonNull ObservableTransformer transformer) {
+        tObservable
                 .compose(transformer)
-                .subscribe(observable);
+                .subscribe(observer);
     }
 
     /**
@@ -147,7 +151,7 @@ public class HttpUtils {
      * @param observable
      * @param <T>
      */
-    private <T> void to(Consumer<T> tConsumer, Observable<T> observable, ObservableTransformer transformer) {
+    private <T> void to(@android.support.annotation.NonNull Consumer<T> tConsumer, Observable<T> observable, @android.support.annotation.NonNull ObservableTransformer transformer) {
         observable
                 .compose(transformer)
                 .subscribe(tConsumer);
@@ -161,7 +165,7 @@ public class HttpUtils {
      * @param observable
      * @param <T>
      */
-    private <T> void to(Consumer<T> tConsumer, MyThrowableConsumer throwableConsumer, Observable<T> observable, ObservableTransformer transformer) {
+    private <T> void to(@android.support.annotation.NonNull Consumer<T> tConsumer, @android.support.annotation.NonNull MyThrowableConsumer throwableConsumer, Observable<T> observable, @android.support.annotation.NonNull ObservableTransformer transformer) {
         observable
                 .compose(transformer)
                 .subscribe(tConsumer, throwableConsumer);
@@ -178,7 +182,7 @@ public class HttpUtils {
      * @param <T>         第一个请求结果
      * @param <H>         第二个请求结果
      */
-    private <T, H> void twoRequests(Observable<T> observable1, Consumer<T> consumer, Function<T, Observable<H>> function, MyObserver<H> myObserver, ObservableTransformer transformer) {
+    private <T, H> void twoRequests(Observable<T> observable1, @android.support.annotation.NonNull Consumer<T> consumer, @android.support.annotation.NonNull Function<T, Observable<H>> function, @android.support.annotation.NonNull MyObserver<H> myObserver, @android.support.annotation.NonNull ObservableTransformer transformer) {
         observable1.compose(transformer)
                 .doOnNext(consumer)
                 .observeOn(Schedulers.io())
@@ -195,11 +199,11 @@ public class HttpUtils {
      * @param transformer
      * @param <T>
      */
-    private <T> void errorto(Observable<T> tObservable, MyObserver<T> observer, ObservableTransformer transformer) {
+    private <T> void errorto(Observable<T> tObservable, @android.support.annotation.NonNull MyObserver<T> observer, @android.support.annotation.NonNull ObservableTransformer transformer) {
         currentRetryCount = 0;
         tObservable.retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
             @Override
-            public ObservableSource<?> apply(@NonNull Observable<Throwable> throwableObservable) throws Exception {
+            public ObservableSource<?> apply(@android.support.annotation.NonNull @NonNull Observable<Throwable> throwableObservable) throws Exception {
                 return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(@NonNull Throwable throwable) throws Exception {
@@ -235,7 +239,8 @@ public class HttpUtils {
      * @param params
      * @return
      */
-    public static Map<String, String> map2StringEn(String... params) {
+    @android.support.annotation.NonNull
+    public static Map<String, String> map2StringEn(@Nullable String... params) {
         if (params == null) {
             throw new NullPointerException("参数不可为空");
         }
