@@ -44,12 +44,6 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         super.onCreate(savedInstanceState);
     }
 
-/*    @Override
-    public void onStart() {
-        super.onStart();
-
-    }*/
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,9 +77,9 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         lp.dimAmount = 0;
         lp.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(lp);
-        getDialog().setCanceledOnTouchOutside(true);
-        tv_title.setText(title);
-        tv_content.setText(content);
+//        getDialog().setCanceledOnTouchOutside(true);
+/*        tv_title.setText(title);
+        tv_content.setText(content);*/
         LogUtils.e("onstart方法执行"+"赋值信息为:title:"+title+"        content:"+content);
 
     }
@@ -96,10 +90,9 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         super.onDismiss(dialog);
     }
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
+    public Dialog getDialog() {
+        return super.getDialog();
     }
 
     @Override

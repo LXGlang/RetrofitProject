@@ -106,7 +106,7 @@ public class HttpUtils {
      */
     public void test(LifecycleProvider lifecycleProvider, @android.support.annotation.NonNull MyObserver<Movie> myObserver, int start, int count) {
         Observable processList = instance.lhApi.getTopMovie(start, count);
-        to(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
+        errorto(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
     }
 
     /**

@@ -8,7 +8,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by caofengge on 17/5/24.
+ * Created by lxg on 17/5/24.
  */
 
 public class HttpResult<T> implements Call<T> {

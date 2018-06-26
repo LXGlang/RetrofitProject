@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lxg.work.retrofit.APP;
 import com.lxg.work.retrofit.R;
 import com.lxg.work.retrofit.re.base.BaseFragmentActivity;
 import com.lxg.work.retrofit.re.base.ScreenAdaptationUtils;
@@ -22,13 +21,13 @@ import com.lxg.work.retrofit.re.widget.MyDialogFragment;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends BaseFragmentActivity implements LoginInput {
+public class MainTestActivity extends BaseFragmentActivity implements LoginInput {
 
     private TextView tv_test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ScreenAdaptationUtils.setCustomDensity(this, this.getApplication(), true);
+        ScreenAdaptationUtils.setCustomDensity(this, this.getApplication(), false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button bt_test = findViewById(R.id.bt_test);
@@ -94,8 +93,7 @@ public class MainActivity extends BaseFragmentActivity implements LoginInput {
                 break;
             case R.id.bt_test3:
                 LogUtils.e("测试dialog");
-//                new MyDialogFragment().show(getSupportFragmentManager(), "login", "我是标题", "我是提示文本");
-                startActivity(new Intent(MainActivity.this, MainTestActivity.class));
+                new MyDialogFragment().show(getSupportFragmentManager(), "login", "我是标题", "我是提示文本");
                 break;
         }
     }
