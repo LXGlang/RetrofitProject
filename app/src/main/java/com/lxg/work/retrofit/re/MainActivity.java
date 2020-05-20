@@ -49,8 +49,6 @@ public class MainActivity extends BaseFragmentActivity implements LoginInput {
         switch (v.getId()) {
             case R.id.bt_test:
                 HttpUtils.getInstance().test(this, new MyObserver<Movie>() {
-
-
                     @Override
                     public void onStart(Disposable disposable) {
                     }
