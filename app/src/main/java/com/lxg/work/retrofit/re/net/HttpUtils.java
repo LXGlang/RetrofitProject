@@ -8,6 +8,7 @@ import com.lxg.work.retrofit.re.entity.response.WanAndroidBean;
 import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class HttpUtils {
     // 当前已重试次数
     private int currentRetryCount = 0;
 
-    public static final String FINAL_URL = APP.getContext().getString(R.string.base_url);
+    public static final String FINAL_URL = APP.getAPPString(R.string.base_url);
 
     @NonNull
     public static HttpUtils getInstance() {
