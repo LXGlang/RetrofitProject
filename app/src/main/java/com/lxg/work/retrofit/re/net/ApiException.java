@@ -5,7 +5,7 @@ package com.lxg.work.retrofit.re.net;
  * Created by lxg on 2017/2/3.
  */
 public class ApiException extends RuntimeException {
-    public static final int SERVICE_ERROR = 110;//
+    public static final int SERVICE_ERROR = 110;
 
     public int getCode() {
         return code;

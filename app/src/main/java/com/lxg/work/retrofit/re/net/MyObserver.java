@@ -57,7 +57,7 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.e("onError方法执行"+e.toString());
+        LogUtils.e("onError方法执行" + e.toString());
 
         String errorMsg;
         //不要随便修改判断位置
@@ -69,10 +69,10 @@ public abstract class MyObserver<T> implements Observer<T> {
             errorMsg = "网络连接异常，请检查网络";
         } else if (e instanceof JsonSyntaxException) {
             errorMsg = "数据返回格式错误";
-        } else if (e instanceof NullPointerException) {
-            errorMsg = "网络传输信息丢失";
         } else if (e instanceof RuntimeException) {
             errorMsg = "运行时错误";
+        } else if (e instanceof NullPointerException) {
+            errorMsg = "网络传输信息丢失";
         } else if (e instanceof UnknownHostException) {
             errorMsg = "无法解析主机，请检查网络连接";
         } else if (e instanceof UnknownServiceException) {

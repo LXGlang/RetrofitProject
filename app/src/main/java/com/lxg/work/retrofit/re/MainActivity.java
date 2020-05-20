@@ -11,6 +11,7 @@ import com.lxg.work.retrofit.R;
 import com.lxg.work.retrofit.re.base.BaseFragmentActivity;
 import com.lxg.work.retrofit.re.base.ScreenAdaptationUtils;
 import com.lxg.work.retrofit.re.entity.response.Movie;
+import com.lxg.work.retrofit.re.entity.response.WanAndroidBean;
 import com.lxg.work.retrofit.re.net.HttpUtils;
 import com.lxg.work.retrofit.re.net.MyObserver;
 import com.lxg.work.retrofit.re.net.MyThrowableConsumer;
@@ -30,22 +31,38 @@ public class MainActivity extends BaseFragmentActivity implements LoginInput {
     protected void onCreate(Bundle savedInstanceState) {
         ScreenAdaptationUtils.setCustomDensity(this, this.getApplication(), true);
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void getIntentData(Intent intent) {
+
+    }
+
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_main);
         Button bt_test = findViewById(R.id.bt_test);
         Button bt_test1 = findViewById(R.id.bt_test1);
         Button bt_test2 = findViewById(R.id.bt_test2);
         Button bt_test3 = findViewById(R.id.bt_test3);
+        Button bt_test4 = findViewById(R.id.bt_test4);
         tv_test = findViewById(R.id.tv_test);
         bt_test.setOnClickListener(this);
         bt_test1.setOnClickListener(this);
         bt_test2.setOnClickListener(this);
         bt_test3.setOnClickListener(this);
+        bt_test4.setOnClickListener(this);
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.bt_test:
                 HttpUtils.getInstance().test(this, new MyObserver<Movie>() {
@@ -94,6 +111,24 @@ public class MainActivity extends BaseFragmentActivity implements LoginInput {
                 LogUtils.e("测试dialog");
 //                new MyDialogFragment().show(getSupportFragmentManager(), "login", "我是标题", "我是提示文本");
                 startActivity(new Intent(MainActivity.this, MainTestActivity.class));
+                break;
+            case R.id.bt_test4:
+                HttpUtils.getInstance().testandroid(this, new MyObserver<WanAndroidBean>() {
+                    @Override
+                    public void onStart(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(WanAndroidBean o) throws Exception {
+                        LogUtils.e("获取到的数据为" + o);
+                    }
+
+                    @Override
+                    public void onFailure(String errorMsg) {
+
+                    }
+                });
                 break;
         }
     }

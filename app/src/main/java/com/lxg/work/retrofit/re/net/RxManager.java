@@ -41,24 +41,21 @@ public class RxManager {
      * @return
      */
     public ObservableTransformer setIoManager() {
-        return new ObservableTransformer() {
-            @Override
-            public ObservableSource apply(Observable upstream) {
-                if (rxFragmentActivity != null) {
-                    return upstream.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .compose(rxFragmentActivity.bindToLifecycle());
-                } else if (rxActivity != null) {
-                    return upstream.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .compose(rxActivity.bindToLifecycle());
-                } else if (rxFragment != null) {
-                    return upstream.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .compose(rxFragment.bindToLifecycle());
-                } else {
-                    throw new RuntimeException("你咋这么牛!重新传值!");
-                }
+        return upstream -> {
+            if (rxFragmentActivity != null) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(rxFragmentActivity.bindToLifecycle());
+            } else if (rxActivity != null) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(rxActivity.bindToLifecycle());
+            } else if (rxFragment != null) {
+                return upstream.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(rxFragment.bindToLifecycle());
+            } else {
+                throw new RuntimeException("你咋这么牛!重新传值!");
             }
         };
     }

@@ -26,9 +26,12 @@ public class MainTestActivity extends BaseFragmentActivity implements LoginInput
     private TextView tv_test;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ScreenAdaptationUtils.setCustomDensity(this, this.getApplication(), false);
-        super.onCreate(savedInstanceState);
+    public void getIntentData(Intent intent) {
+
+    }
+
+    @Override
+    public void initView() {
         setContentView(R.layout.activity_main);
         Button bt_test = findViewById(R.id.bt_test);
         Button bt_test1 = findViewById(R.id.bt_test1);
@@ -41,10 +44,14 @@ public class MainTestActivity extends BaseFragmentActivity implements LoginInput
         bt_test3.setOnClickListener(this);
     }
 
+    @Override
+    public void loadData() {
+
+    }
+
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.bt_test:
                 HttpUtils.getInstance().test(this, new MyObserver<Movie>() {

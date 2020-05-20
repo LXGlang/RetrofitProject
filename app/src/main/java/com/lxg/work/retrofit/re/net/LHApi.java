@@ -2,6 +2,7 @@ package com.lxg.work.retrofit.re.net;
 
 
 import com.lxg.work.retrofit.re.entity.response.Movie;
+import com.lxg.work.retrofit.re.entity.response.WanAndroidBean;
 
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface LHApi {
 
     @GET("top250")
     Observable<Movie> getTopMovie(@Query("start") int start, @Query("count") int count);
+    @GET("wxarticle/chapters/json")
+    Observable<WanAndroidBean> getWanAndroid();
 }

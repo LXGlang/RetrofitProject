@@ -18,7 +18,8 @@
                 android:id="@+id/bt_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="测试" />
+                android:text="测试"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/bt_test1"
@@ -41,6 +42,13 @@
                 android:text="检查更新"
                 app:layout_constraintTop_toBottomOf="@id/bt_test2" />
 
+            <Button
+                android:id="@+id/bt_test4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩Android测试接口"
+                app:layout_constraintTop_toBottomOf="@id/bt_test3" />
+
             <TextView
                 android:id="@+id/tv_test"
                 android:layout_width="120dp"
@@ -48,7 +56,7 @@
                 android:background="@color/colorAccent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bt_test3" />
+                app:layout_constraintTop_toBottomOf="@id/bt_test4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

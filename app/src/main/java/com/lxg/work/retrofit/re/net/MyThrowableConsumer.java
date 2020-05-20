@@ -38,10 +38,10 @@ public class MyThrowableConsumer implements Consumer<Throwable> {
         } else if (t instanceof JsonSyntaxException) {
             errorMsg = "数据返回格式错误";
             t.printStackTrace();
-        } else if (t instanceof NullPointerException) {
-            errorMsg = "网络传输信息丢失";
         } else if (t instanceof RuntimeException) {
             errorMsg = "运行时错误";
+        } else if (t instanceof NullPointerException) {
+            errorMsg = "网络传输信息丢失";
         } else if (t instanceof UnknownHostException) {
             errorMsg = "无法解析主机，请检查网络连接";
         } else if (t instanceof UnknownServiceException) {
