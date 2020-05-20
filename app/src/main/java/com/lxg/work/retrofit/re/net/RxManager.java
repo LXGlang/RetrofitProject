@@ -1,9 +1,9 @@
 package com.lxg.work.retrofit.re.net;
 
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.components.RxActivity;
-import com.trello.rxlifecycle2.components.RxFragment;
-import com.trello.rxlifecycle2.components.support.RxFragmentActivity;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.components.RxActivity;
+import com.trello.rxlifecycle3.components.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragmentActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

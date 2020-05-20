@@ -1,7 +1,6 @@
 package com.lxg.work.retrofit.re.util;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 import android.view.View;
 
 import com.lxg.work.retrofit.re.widget.MyDialogFragment;

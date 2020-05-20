@@ -64,7 +64,7 @@ public class MainTestActivity extends BaseFragmentActivity implements LoginInput
                     @Override
                     public void onFailure(String errorMsg) {
                         MyDialogFragment myDialogFragment = new MyDialogFragment();
-                        myDialogFragment.show(getSupportFragmentManager(), "测试1");
+//                        myDialogFragment.show(getSupportFragmentManager(), "测试1");
 //                        myDialogFragment.setinfo("出错啦!",errorMsg,null,null);
                     }
 
@@ -93,7 +93,7 @@ public class MainTestActivity extends BaseFragmentActivity implements LoginInput
                 break;
             case R.id.bt_test3:
                 LogUtils.e("测试dialog");
-                new MyDialogFragment().show(getSupportFragmentManager(), "login", "我是标题", "我是提示文本");
+//                new MyDialogFragment().show(getSupportFragmentManager(), "login", "我是标题", "我是提示文本");
                 break;
         }
     }

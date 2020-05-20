@@ -2,7 +2,8 @@ package com.lxg.work.retrofit.re.base;
 
 import android.view.View;
 
-import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle3.components.RxActivity;
+
 
 /**
  * Created by Lxg on 2018/5/24 0024.

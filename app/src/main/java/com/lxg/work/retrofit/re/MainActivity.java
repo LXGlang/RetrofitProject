@@ -65,7 +65,7 @@ public class MainActivity extends BaseFragmentActivity implements LoginInput {
                     @Override
                     public void onFailure(String errorMsg) {
                         MyDialogFragment myDialogFragment = new MyDialogFragment();
-                        myDialogFragment.show(getSupportFragmentManager(), "测试1");
+//                        myDialogFragment.show(getSupportFragmentManager(), "测试1");
 //                        myDialogFragment.setinfo("出错啦!",errorMsg,null,null);
                     }
 
