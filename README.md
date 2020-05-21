@@ -1,1 +1,1 @@
-一个简单的对Retrofit 与RxJava3的封装,使用了rxlifecycle 对生命周期进行管理
+一个简单的Demo,对Retrofit 与RxJava3的封装,使用了rxlifecycle 对生命周期进行管理
