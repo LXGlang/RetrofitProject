@@ -3,12 +3,10 @@ package com.lxg.work.retrofit.re.net;
 import com.lxg.work.retrofit.APP;
 import com.lxg.work.retrofit.BuildConfig;
 import com.lxg.work.retrofit.R;
-import com.lxg.work.retrofit.re.entity.response.Movie;
 import com.lxg.work.retrofit.re.entity.response.WanAndroidBean;
 import com.lxg.work.retrofit.re.util.LogUtils;
 import com.lxg.work.retrofit.re.util.ToastUtils;
 import com.trello.rxlifecycle3.LifecycleProvider;
-import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,7 +38,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public class HttpUtils {
 
     @NonNull
-    private static HttpUtils instance = new HttpUtils();
+    private volatile static HttpUtils httpUtils;
     private LHApi lhApi;
     private Interceptor interceptor;
 
@@ -53,7 +51,14 @@ public class HttpUtils {
 
     @NonNull
     public static HttpUtils getInstance() {
-        return instance;
+        if (httpUtils == null) {
+            synchronized (HttpUtils.class) {
+                if (httpUtils == null) {
+                    httpUtils = new HttpUtils();
+                }
+            }
+        }
+        return httpUtils;
     }
 
     private HttpUtils() {
@@ -99,55 +104,24 @@ public class HttpUtils {
     }
 
     /**
-     * 测试方法
-     *
-     * @param lifecycleProvider
-     * @param myObserver
-     */
-    public void test(LifecycleProvider lifecycleProvider, @NonNull MyObserver<Movie> myObserver, int start, int count) {
-        Observable processList = instance.lhApi.getTopMovie(start, count);
-        errorto(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
-    }
-
-    /**
-     * 测试方法
-     *
-     * @param lifecycleProvider
-     * @param observable
-     */
-    public void test1(LifecycleProvider lifecycleProvider, @NonNull Consumer<Movie> observable, @NonNull MyThrowableConsumer throwableConsumer, int start, int count) {
-        Observable processList = instance.lhApi.getTopMovie(start, count);
-        to(observable, throwableConsumer, processList, new RxManager(lifecycleProvider).setIoManager());
-    }
-
-    /**
-     * 测试方法
-     *
-     * @param lifecycleProvider
-     * @param observable
-     */
-    public void test2(LifecycleProvider lifecycleProvider, @NonNull Consumer<Movie> observable, int start, int count) {
-        Observable processList = instance.lhApi.getTopMovie(start, count);
-        to(observable, processList, new RxManager(lifecycleProvider).setIoManager());
-    }
-    /**
-     * 玩Android开源接口测试方法
+     * 玩Android开源接口测试方法-获取公众号列表
      *
      * @param lifecycleProvider
      * @param myObserver
      */
     public void testandroid(LifecycleProvider lifecycleProvider, @NonNull MyObserver<WanAndroidBean> myObserver) {
-        Observable processList = instance.lhApi.getWanAndroid();
-        errorto(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
+        Observable processList = httpUtils.lhApi.getWanAndroid();
+        to(processList, myObserver, new RxManager(lifecycleProvider).setIoManager());
     }
+
     /**
      * 处理全部事件
      *
-     * @param tObservable   处理全部事件
+     * @param tObservable 处理全部事件
      * @param observer
      * @param <T>
      */
-    private <T> void to(Observable<T> tObservable, @NonNull Observer<T> observer, @NonNull ObservableTransformer transformer) {
+    private <T> void to(Observable tObservable, @NonNull Observer<T> observer, @NonNull ObservableTransformer transformer) {
         tObservable
                 .compose(transformer)
                 .subscribe(observer);

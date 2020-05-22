@@ -15,6 +15,7 @@ import com.trello.rxlifecycle3.components.support.RxFragmentActivity;
 public abstract class BaseFragmentActivity extends RxFragmentActivity implements View.OnClickListener{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        ScreenAdaptationUtils.setCustomDensity(this, this.getApplication(), true);
         super.onCreate(savedInstanceState);
         getIntentData(getIntent());
         initView();

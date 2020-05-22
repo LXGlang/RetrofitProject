@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.StringRes;
+import androidx.multidex.MultiDex;
 
 /**
  * Created by Lxg on 2018/5/25 0025.
@@ -15,6 +16,7 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        MultiDex.install(this);
     }
 
     public static Context getContext() {

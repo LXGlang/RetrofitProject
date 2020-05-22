@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.rxlifecycle3.components.RxFragment;
-
 import io.reactivex.annotations.Nullable;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 /**
  * Created by Lxg on 2018/5/24 0024.
  */
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends SupperBaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

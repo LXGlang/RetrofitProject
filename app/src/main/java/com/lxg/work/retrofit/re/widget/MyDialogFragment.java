@@ -3,10 +3,6 @@ package com.lxg.work.retrofit.re.widget;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.lxg.work.retrofit.R;
 import com.lxg.work.retrofit.re.util.LogUtils;
-import com.lxg.work.retrofit.re.util.LoginInput;
 
 
 /**
@@ -97,8 +97,8 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_yes:
-                LoginInput loginInput = (LoginInput) getActivity();
-                loginInput.userLogin(ed_username.getText().toString(), ed_password.getText().toString());
+//                LoginInput loginInput = (LoginInput) getActivity();
+//                loginInput.userLogin(ed_username.getText().toString(), ed_password.getText().toString());
                 break;
             case R.id.bt_no:
                 MyDialogFragment.this.dismiss();
